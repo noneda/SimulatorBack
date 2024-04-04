@@ -1,0 +1,23 @@
+{
+  "name": "backproudc",
+  "version": "1.0.0",
+  "description": "It´s repository is only for test Simulator",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noneda/SimulatorBack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noneda/SimulatorBack/issues"
+  },
+  "homepage": "https://github.com/noneda/SimulatorBack#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "sequelize": "^6.37.2"
+  }
+}
