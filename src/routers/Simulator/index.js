@@ -1,5 +1,5 @@
 import { Router } from "express";
-import simulatorController from './../../controllers/Simulator';
+//import simulatorController from './../../controllers/Simulator';
 
 
 const router = Router();
