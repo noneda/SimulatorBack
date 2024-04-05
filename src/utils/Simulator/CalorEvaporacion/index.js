@@ -1,8 +1,7 @@
 /*
     ! -> FUCK!!!!!!!!!!!!!!!!!!!!! HOW DO YOU THINK THAT I UNDERSTAND IT?
 */
-class EcuaEvaporacion{
-
+class EcuaEvaporate{
     constructor(InitialWeight, FinalWeight, heatUsed, massAEvaporate, heatIdealVaporization, supplyEnergy){
         this.InitialWeight = InitialWeight
         this.FinalWeight = FinalWeight
@@ -17,21 +16,15 @@ class EcuaEvaporacion{
     }
 
     IdealEnergy(){
-
         return (massAEvaporate * heatIdealVaporization)
-    
     }
     
     EquationExcessEnergy(){
-    
         return (heatUsed - IdealEnergy())
-    
     }
     
     EquationDeficitEnergy(){
-    
         return (IdealEnergy() - heatUsed)
-    
     }
     timeToEvaporateEverything(){
 /*
@@ -41,9 +34,7 @@ class EcuaEvaporacion{
 */
     return (heatIdealVaporization / supplyEnergy)
     }
-
-
 }
 
 
-export default EcuaEvaporacion;
+export default EcuaEvaporate;

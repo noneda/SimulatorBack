@@ -15,7 +15,7 @@ idDataObtained: {
     type: DataTypes.FLOAT,
  },
  humidity_percentage: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.FLOAT, 
  },
  solids_percentage: {
     type: DataTypes.FLOAT,
@@ -37,4 +37,4 @@ idDataObtained: {
  timestamps: false, // Assuming the table does not have timestamps
 });
 
-module.exports = DatosOptenidos;
+module.exports = DataObtained;

@@ -1,7 +1,7 @@
-import app from './app'
-import './database'
+import app from './app.js'
+import './database/index.js'
 
-import {getConfig} from './config'
+import {getConfig} from './config.js'
 
 const conf = getConfig()
 
