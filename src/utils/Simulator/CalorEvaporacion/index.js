@@ -12,19 +12,19 @@ class EcuaEvaporate{
     }
 
     humidityPercentage() {
-        return (((InitialWeight - FinalWeight) / InitialWeight) * 100);
+        return (((this.InitialWeight - this.FinalWeight) / this.InitialWeight) * 100);
     }
 
     IdealEnergy(){
-        return (massAEvaporate * heatIdealVaporization)
+        return (this.massAEvaporate * this.heatIdealVaporization)
     }
     
     EquationExcessEnergy(){
-        return (heatUsed - IdealEnergy())
+        return (this.heatUsed - this.IdealEnergy())
     }
     
     EquationDeficitEnergy(){
-        return (IdealEnergy() - heatUsed)
+        return (this.IdealEnergy() - this.heatUsed)
     }
     timeToEvaporateEverything(){
 /*
@@ -32,11 +32,10 @@ class EcuaEvaporate{
     de agua especifica usando la energia total para evaporar todo y dividirlo
     por la cantidad de calor que se suministra cada segundo Vatios W o Joules por segundo
 */
-    return (heatIdealVaporization / supplyEnergy)
+    return (this.heatIdealVaporization / this.supplyEnergy)
     }
 }
 
 
-module.exports = {
-    EcuaEvaporate
+module.exports = {EcuaEvaporate
 }

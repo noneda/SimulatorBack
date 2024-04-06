@@ -12,7 +12,7 @@ const getResultsData = async (req, res) => {
             heatIdealVaporization,
             supplyEnergy
         } = req.body;
-        const ResEcua = EcuaEvaporate(
+        var ResEcua =  new EcuaEvaporate(
             InitialWeight,
             FinalWeight,
             heatUsed,
@@ -26,19 +26,21 @@ const getResultsData = async (req, res) => {
             mensage: error.mensage
         })
     }finally{
-        const send = {
-            humidityPercentage : ResEcua.humidityPercentage(),
-            IdealEnergy: ResEcua.IdealEnergy(),
-            EquationExcessEnergy : ResEcua.EquationExcessEnergy(),
-            EquationDeficitEnergy : ResEcua.EquationDeficitEnergy(),
-            timeToEvaporateEverything : ResEcua.timeToEvaporateEverything()
-        }
-
-        res.status(500).json(
-            {
-                send
+        if (ResEcua){
+            const send = {
+                humidityPercentage : ResEcua.humidityPercentage(),
+                IdealEnergy: ResEcua.IdealEnergy(),
+                EquationExcessEnergy : ResEcua.EquationExcessEnergy(),
+                EquationDeficitEnergy : ResEcua.EquationDeficitEnergy(),
+                timeToEvaporateEverything : ResEcua.timeToEvaporateEverything()
             }
-        )
+    
+            res.status(500).json(
+                {
+                    send
+                }
+            )
+        }
     }
 }
 
