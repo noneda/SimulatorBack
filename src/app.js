@@ -1,9 +1,9 @@
-import routes from './routers';
+const routes = require('./routers')
 
 
-import express from "express";
-import morgan from "morgan";
-import cors from "cors";
+const express = require('express')
+const morgan = require('morgan')
+const cors = require('cors')
 
 const app = express();
 
@@ -23,4 +23,4 @@ app.get("/", (req, res) => {
 
 routes(app);
 
-export default app;
+module.exports = app;

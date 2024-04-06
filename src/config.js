@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-export const prodConfig = {
+const prodConfig = {
   SECRET: process.env.SECRET,
   conection: {
     PORT: process.env.PORT,
@@ -15,7 +15,7 @@ export const prodConfig = {
   HOST: process.env.HOST,
 };
 
-export const devConfig = {
+const devConfig = {
   SECRET: process.env.SECRET,
   conection: {
     PORT: process.env.PORT,
@@ -30,10 +30,13 @@ export const devConfig = {
   HOST: process.env.HOST,
 };
 
-export const getConfig = () => {
+const getConfig = () => {
   if (process.env.NODE_ENV === "production") {
-    return prodConfig;
+     return prodConfig;
   } else {
-    return devConfig;
+     return devConfig;
   }
-};
+ };
+ 
+ module.exports = { getConfig };
+ 

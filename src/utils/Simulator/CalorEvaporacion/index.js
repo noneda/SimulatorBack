@@ -37,4 +37,6 @@ class EcuaEvaporate{
 }
 
 
-export default EcuaEvaporate;
+module.exports = {
+    EcuaEvaporate
+}

@@ -1,8 +1,9 @@
-import EcuaEvaporate from '../../../utils/Simulator/CalorEvaporacion'
+const {EcuaEvaporate} = require('../../../utils/Simulator/CalorEvaporacion')
 //import EcuaEvaporacion from '../../../models/Simulator/'
 
-export const getResultsData = async (req, res) => {
+const getResultsData = async (req, res) => {
     try{
+        console.log("POST")
         const {
             InitialWeight,
             FinalWeight, 
@@ -39,4 +40,9 @@ export const getResultsData = async (req, res) => {
             }
         )
     }
+}
+
+
+module.exports = {
+    getResultsData
 }
