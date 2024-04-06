@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../../database/mysql"); // Assuming you have a Sequelize instance configured
+const sequelize = require("./../../database") 
 
 const ResultEquationsMachine = sequelize.define("ResultEquationsMachine", {
 IdDataObtained: {

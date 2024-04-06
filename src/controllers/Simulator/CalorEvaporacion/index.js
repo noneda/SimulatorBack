@@ -1,5 +1,5 @@
 const {EcuaEvaporate} = require('../../../utils/Simulator/CalorEvaporacion')
-//import EcuaEvaporacion from '../../../models/Simulator/'
+const {EcuaEvaporacion} = require('../../../models/Simulator/')
 
 const getResultsData = async (req, res) => {
     try{

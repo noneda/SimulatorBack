@@ -1,6 +1,6 @@
-const { Sequelize } = require("sequelize");
+const { Sequelize } = require('sequelize');
 require("dotenv").config();
-import { getConfig } from "../config";
+const { getConfig } =  require('../config')
 
 const config = getConfig();
 
