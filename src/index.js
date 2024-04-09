@@ -1,7 +1,7 @@
-import app from './app'
-import './database'
+const app = require('./app')
+//import './database'
 
-import {getConfig} from './config'
+const {getConfig} = require('./config');
 
 const conf = getConfig()
 

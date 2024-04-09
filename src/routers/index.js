@@ -1,6 +1,8 @@
-import SimulatorPaths from './Simulator'
+const SimulatorPaths = require('./Simulator')
 
-export default function (app) {
+const send = (app) => {
   app.use("/api/test", SimulatorPaths);
 
 }
+
+module.exports = send;
