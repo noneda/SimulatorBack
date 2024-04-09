@@ -1,5 +1,5 @@
 const  { Router } = require('express')
-const { getResultsData } = require('../../controllers/Simulator/CalorEvaporacion')
+const { getResultsData } = require('../../controllers/Simulator/')
 
 
 const router = Router();

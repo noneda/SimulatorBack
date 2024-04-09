@@ -1,0 +1,27 @@
+[
+    {
+        "masa_total": "100 kg",
+        "porcentaje_humedad": "5 %",
+        "porcentaje_de_solidos": "90 %",
+        "solidos_iniciales": "70 kg",
+        "calor_especifico_del_trigo": "1.2 kJ/kg°C",
+        "cambio_temperatura": "30 °C",
+        "calor_latente_de_evaporacion_del_agua": "2260 kJ/kg",
+        "humedad_inicial": "5 kg",
+        "masa_total_trigo_al_salir": "90 kg",
+        "agua_evaporada": "-15 kg",
+        "calor_sensible": "3600 kJ",
+        "calor_latente": "-33900 kJ",
+        "calor_total":"-30300 kJ"
+    },
+    
+    {
+        "masa_total": 100, 
+        "porcentaje_humedad": 5,
+        "porcentaje_de_solidos": 90,
+        "solidos_iniciales": 70,
+        "calor_especifico_del_trigo": 1.2,
+        "cambio_temperatura": 30,
+        "calor_latente_de_evaporacion_del_agua": 2260
+    }
+]
