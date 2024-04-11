@@ -3,8 +3,6 @@
 
 * Sebastian
 
-
-
 ---
 # Obtener los datos del usuario por consola
 ```python
