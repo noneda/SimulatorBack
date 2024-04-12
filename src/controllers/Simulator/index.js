@@ -1,33 +1,50 @@
-const {NewFormulas} = require('../../utils/Simulator')
-const {NewSimulator} =  require('../../models/Simulator')
+const NewFormulas = require('../../utils/Simulator')
+const NewSimulator =  require('../../models/Simulator')
 
 const getNewResults = async (req , res) => {
+    const {
+        user_id,
+        CantidadInicial,
+        HumedadInicial,
+        HumedadFinal,
+        FluidoServicio,
+        TempInicial,
+        TempFinal,
+        LambDa,
+        CalorEspMa,
+        CalorEspAg
+    } = req.body;
+    
+    function calcPorcentaje(PORCENTAJE, TYPE) {
+        if (TYPE) {
+            return PORCENTAJE / 100;
+        } else {
+            return (100 - PORCENTAJE) / 100;
+        }
+    };
     try{
-        const {
-            user_id,
-            CantidadInical,
-            HumedadInical,
-            HumedadFinal,
-            FluidoServicio,
-            TemInical,
-            TemFinal,
-            LamnDa,
-            CalorEspMa,
-            CalorEspAg
-        } = req.body;
 
-        const Data =  new NewFormulas(
-            user_id,
-            CantidadInical,
-            HumedadInical,
+        console.log(req.body)
+        // AQUI SI LE ENVIO LOS DATOS A OTRO LADO SE MANDA UN ERRRO
+        const Solidos = CantidadInicial * calcPorcentaje(HumedadInicial, false)
+        
+        const gHumedadInicial =  CantidadInicial - Solidos;
+
+        cons
+        console.log(Solidos)
+
+        const Data = new NewFormulas(
+            user_id, //
+            CantidadInicial,
+            HumedadInicial,
             HumedadFinal,
             FluidoServicio,
-            TemInical,
-            TemFinal,
-            LamnDa,
+            TempInicial,
+            TempFinal,
+            LambDa,
             CalorEspMa,
             CalorEspAg
-        )
+        );
 
         console.log(Data.RetornAll)
         
@@ -48,11 +65,7 @@ const getNewResults = async (req , res) => {
             //const report = await NewSimulator.create(Data.RetornAll)
 
             //Reporte de Reporete de la base de Datos
-            res.status(200).json(
-                {
-                    send
-                }
-            )
+            res.status(200).json(send);
         }
     }catch(error) {
         //console.error('Error with getResultsData: ', error);
@@ -79,7 +92,8 @@ const getResultsData = async (req, res) => {
             CalorEspAg
         } = req.body;
 
-        console.log(req.body);
+        
+        console.log( "->" , req.body);
 
         // Crear una instancia de NewFormulas (asumiendo que es una clase existente)
         const Data = new NewFormulas(
@@ -109,12 +123,12 @@ const getResultsData = async (req, res) => {
             };
 
             // Crear un nuevo reporte en la base de datos usando el modelo NewSimulator
-            const report = await NewSimulator.create({
-                user_id: user_id,
-                ...send  // Insertar los datos del objeto send en la creación del reporte
-            });
-
+            const report = await NewSimulator.create(
+                Data.RetornAll // Insertar los datos del objeto send en la creación del reporte
+            );
+  
             res.status(200).json(send); // Enviar los datos de vuelta como respuesta
+            console.log(Data.RetornAll)
         }
     } catch (error) {
         console.error('Error with getResultsData: ', error);
@@ -125,5 +139,6 @@ const getResultsData = async (req, res) => {
 };
 
 module.exports = {
-    getNewResults
+    getNewResults,
+    getResultsData
 };

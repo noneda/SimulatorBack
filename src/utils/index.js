@@ -2,7 +2,7 @@ const NewFormulas = require("./Simulator")
 
 
 const Data =  new NewFormulas(
-    1, 500, 15, 7, 0.012, 281.15, 343.15, 2230, 1.710, 4.100
+    1, 500, 15, 7, 0.012, 281.15, 343.15, 2230, 1.710, 4.100, 
 )
 
 const send = {

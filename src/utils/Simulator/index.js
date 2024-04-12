@@ -61,7 +61,7 @@ class NewFormulas {
     }
 
     get QSensibleMat(){
-        return this.CantidadInicial * this.CalorEspMa * (this.emPFinal - this.TemPIncial);
+        return this.CantidadInicial * this.CalorEspMa * (this.TempFinal - this.TempInicial);
     }
 
     get QTotal(){
