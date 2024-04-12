@@ -1,60 +1,144 @@
-const {Formulas} = require('../../utils/Simulator')
-const Simulator =  require('../../models/Simulator')
+const NewFormulas = require('../../utils/Simulator')
+const NewSimulator =  require('../../models/Simulator')
 
-
-const getResultsData = async (req, res) => {
+const getNewResults = async (req , res) => {
+    const {
+        user_id,
+        CantidadInicial,
+        HumedadInicial,
+        HumedadFinal,
+        FluidoServicio,
+        TempInicial,
+        TempFinal,
+        LambDa,
+        CalorEspMa,
+        CalorEspAg
+    } = req.body;
+    
+    function calcPorcentaje(PORCENTAJE, TYPE) {
+        if (TYPE) {
+            return PORCENTAJE / 100;
+        } else {
+            return (100 - PORCENTAJE) / 100;
+        }
+    };
     try{
-        console.log("POST")
-        const {
-            a,
-            humedad_inicial,
-            humedad_deseada,
-            flujo_trigo,
-            temperatura_inicial,
-            temperatura_final,
-            calor_especifico_trigo,
-            entalpia_vaporizacion_agua
-        } = req.body;
-        var ResEcua =  new Formulas(
-            a,
-            humedad_inicial,
-            humedad_deseada,
-            flujo_trigo,
-            temperatura_inicial,
-            temperatura_final,
-            calor_especifico_trigo,
-            entalpia_vaporizacion_agua
-        )
-        console.log(a)
-        //console.log(ResEcua.RetornAll.user_id = user_id)
-    }catch(error){
-        console.error('Error with getResultsData: ', error)
+
+        console.log(req.body)
+        // AQUI SI LE ENVIO LOS DATOS A OTRO LADO SE MANDA UN ERRRO
+        const Solidos = CantidadInicial * calcPorcentaje(HumedadInicial, false)
+        
+        const gHumedadInicial =  CantidadInicial - Solidos;
+
+        cons
+        console.log(Solidos)
+
+        const Data = new NewFormulas(
+            user_id, //
+            CantidadInicial,
+            HumedadInicial,
+            HumedadFinal,
+            FluidoServicio,
+            TempInicial,
+            TempFinal,
+            LambDa,
+            CalorEspMa,
+            CalorEspAg
+        );
+
+        console.log(Data.RetornAll)
+        
+        if(Data){
+
+            const send = {
+                Solidos : Data.Solidos,
+                gHumedadInicial : Data.gHumedadInicial,
+                gHumedadFinal : Data.gHumedadFinal,
+                AguaEvaporada : Data.AguaEvaporada,
+                FlujoAireSeco : Data.FlujoAireSeco,
+                QLatenteAg : Data.QLatenteAg,
+                QSencibleMat : Data.QSencibleMat, 
+                QTotal : Data.QTotal,
+            }
+            // Reporte de Send...
+            console.log(send)
+            //const report = await NewSimulator.create(Data.RetornAll)
+
+            //Reporte de Reporete de la base de Datos
+            res.status(200).json(send);
+        }
+    }catch(error) {
+        //console.error('Error with getResultsData: ', error);
         res.status(500).json({
             mensage: error.mensage
         })
-    }finally{
-        if (ResEcua){
-            const send = {
-                agua_en_trigo_humedo : ResEcua.agua_en_trigo_humedo,
-                agua_en_trigo_seco: ResEcua.agua_en_trigo_seco,
-                agua_a_evaporar : ResEcua.agua_a_evaporar,
-                calor_sencible : ResEcua.calor_sencible,
-                calor_latente : ResEcua.calor_latente,
-                calor_total : ResEcua.calor_total,
-                peso_neto_trigo : ResEcua.peso_neto_trigo
-            }
-            const report = await Simulator.create(ResEcua.RetornAll)
-    
-            res.status(500).json(
-                {
-                    send
-                }
-            )
-        }
+
     }
 }
+const getResultsData = async (req, res) => {
+    try {
+        console.log("POST");
 
+        const {
+            user_id,
+            CantidadInicial,
+            HumedadInicial,
+            HumedadFinal,
+            FluidoServicio,
+            TempInicial,
+            TempFinal,
+            LambDa,
+            CalorEspMa,
+            CalorEspAg
+        } = req.body;
+
+        
+        console.log( "->" , req.body);
+
+        // Crear una instancia de NewFormulas (asumiendo que es una clase existente)
+        const Data = new NewFormulas(
+            user_id,
+            CantidadInicial,
+            HumedadInicial,
+            HumedadFinal,
+            FluidoServicio,
+            TempInicial,
+            TempFinal,
+            LambDa,
+            CalorEspMa,
+            CalorEspAg
+        );
+
+        // Si la instancia de Data se crea correctamente
+        if (Data) {
+            const send = {
+                Solidos: Data.Solidos,
+                gHumedadInicial: Data.gHumedadInicial,
+                gHumedadFinal: Data.gHumedadFinal,
+                AguaEvaporada: Data.AguaEvaporada,
+                FlujoAireSeco: Data.FlujoAireSeco,
+                QLatenteAg: Data.QLatenteAg,
+                QSensibleMat: Data.QSensibleMat,
+                QTotal: Data.QTotal,
+            };
+
+            // Crear un nuevo reporte en la base de datos usando el modelo NewSimulator
+            const report = await NewSimulator.create(
+                Data.RetornAll // Insertar los datos del objeto send en la creación del reporte
+            );
+  
+            res.status(200).json(send); // Enviar los datos de vuelta como respuesta
+            console.log(Data.RetornAll)
+        }
+    } catch (error) {
+        console.error('Error with getResultsData: ', error);
+        res.status(500).json({
+            message: error.message  // Usar "message" en lugar de "mensage"
+        });
+    }
+};
 
 module.exports = {
+    getNewResults,
     getResultsData
-}
+};
