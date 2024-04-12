@@ -1,7 +1,7 @@
-const SimulatorPaths = require('./Simulator')
+const router = require('./Simulator')
 
 const send = (app) => {
-  app.use("/api/test", SimulatorPaths);
+  app.use("/api/test", router);
 
 }
 

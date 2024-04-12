@@ -31,15 +31,15 @@ class NewFormulas {
         }
     }
     get Solidos(){
-        return this.CantidadInical * self.calcPorcentaje(self.HumedadInical, false)
+        return this.CantidadInical * this.calcPorcentaje(this.HumedadInical, false)
     }
     get gHumedadInicial(){
-        return this.CantidadInical - self.Solidos
+        return this.CantidadInical - this.Solidos
     }
     get gHumedadFinal(){
         return(
             this.Solidos * this.calcPorcentaje(this.HumedadFinal, true)
-            / this.calcPorcentaje(self.HumedadFinal, false)
+            / this.calcPorcentaje(this.HumedadFinal, false)
         )
     }
     get AguaEvaporada(){
