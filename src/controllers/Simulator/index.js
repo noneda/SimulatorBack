@@ -1,60 +1,77 @@
-const {Formulas} = require('../../utils/Simulator')
-const Simulator =  require('../../models/Simulator')
+const NewFormulas = require('../../utils/Simulator')
+const NewSimulator =  require('../../models/Simulator')
 
-
-const getResultsData = async (req, res) => {
+const getNewResults = async (req , res) => {
     try{
-        console.log("POST")
         const {
-            a,
-            humedad_inicial,
-            humedad_deseada,
-            flujo_trigo,
-            temperatura_inicial,
-            temperatura_final,
-            calor_especifico_trigo,
-            entalpia_vaporizacion_agua
+            user_id,
+            CantidadInical,
+            HumedadInical,
+            HumedadFinal,
+            FluidoServicio,
+            TemInical,
+            TemFinal,
+            LamnDa,
+            CalorEspMa,
+            CalorEspAg
         } = req.body;
-        var ResEcua =  new Formulas(
-            a,
-            humedad_inicial,
-            humedad_deseada,
-            flujo_trigo,
-            temperatura_inicial,
-            temperatura_final,
-            calor_especifico_trigo,
-            entalpia_vaporizacion_agua
+        // Reporte del Body... Para ver q es lo que Envia
+        console.log(req.body)
+
+        var Data = NewFormulas(
+            user_id,
+            CantidadInical,
+            HumedadInical,
+            HumedadFinal,
+            FluidoServicio,
+            TemInical,
+            TemFinal,
+            LamnDa,
+            CalorEspMa,
+            CalorEspAg
         )
-        console.log(a)
-        //console.log(ResEcua.RetornAll.user_id = user_id)
-    }catch(error){
-        console.error('Error with getResultsData: ', error)
-        res.status(500).json({
-            mensage: error.mensage
-        })
-    }finally{
-        if (ResEcua){
+
+        if(Data){
+
             const send = {
-                agua_en_trigo_humedo : ResEcua.agua_en_trigo_humedo,
-                agua_en_trigo_seco: ResEcua.agua_en_trigo_seco,
-                agua_a_evaporar : ResEcua.agua_a_evaporar,
-                calor_sencible : ResEcua.calor_sencible,
-                calor_latente : ResEcua.calor_latente,
-                calor_total : ResEcua.calor_total,
-                peso_neto_trigo : ResEcua.peso_neto_trigo
+                Solidos : Data.Solidos,
+                gHumedadInicial : Data.gHumedadInicial,
+                gHumedadFinal : Data.gHumedadFinal,
+                AguaEvaporada : Data.AguaEvaporada,
+                FlujoAireSeco : Data.FlujoAireSeco,
+                QLatenteAg : Data.QLatenteAg,
+                QSencibleMat : Data.QSencibleMat, 
+                QTotal : Data.QTotal,
             }
-            const report = await Simulator.create(ResEcua.RetornAll)
-    
+            // Reporte de Send...
+            console.log(send)
+            const report = await NewSimulator.create(Data.RetornAll)
+
+            //Reporte de Reporete de la base de Datos
+
+            console.log(report)
             res.status(500).json(
                 {
-                    send
+                    mensage : "Succesful!!",
+                    send : send
+                }
+            )
+        }else{
+            res.status(404).json(
+                {
+                    mensage : "Error With Data Process"
                 }
             )
         }
+    }catch(error) {
+
+        res.status(500).json({
+            mensage: error.mensage
+        })
+
     }
 }
 
-
 module.exports = {
-    getResultsData
+    getNewResults
 }

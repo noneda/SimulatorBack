@@ -1,76 +1,103 @@
-// ? Exports
-
-var BalanceEnergia = require('./BalanceEnergia')
-var BalanceMateria = require('./BalanceMateria')
-
-class Formulas {
+class NewFormulas {
     constructor(
-        a,
-        humedad_inicial,
-        humedad_deseada,
-        flujo_trigo,
-        temperatura_inicial,
-        temperatura_final,
-        calor_especifico_trigo,
-        entalpia_vaporizacion_agua
-    )
-    {
-        this.a = a
-        this.humedad_deseada = humedad_deseada
-        this.humedad_inicial = humedad_inicial
-        this.flujo_trigo = flujo_trigo
-        this.temperatura_inicial = temperatura_inicial
-        this.calor_especifico_trigo = calor_especifico_trigo
-        this.entalpia_vaporizacion_agua = entalpia_vaporizacion_agua
-        this.temperatura_final = temperatura_final
+        user_id,
+        CantidadInical,
+        HumedadInical,
+        HumedadFinal,
+        FluidoServicio,
+        TemInical,
+        TemFinal,
+        LambDa,
+        CalorEspMa,
+        CalorEspAg,
+    ){
+        this.user_id        = user_id
+        this.CantidadInical = CantidadInical
+        this.HumedadInical  = HumedadInical
+        this.HumedadFinal   = HumedadFinal
+        this.FluidoServicio = FluidoServicio
+        this.TemInical      = TemInical
+        this.TemFinal       = TemFinal
+        this.LambDa         = LambDa
+        this.CalorEspMa     = CalorEspMa
+        this.CalorEspAg     = CalorEspAg
     }
-    get agua_en_trigo_humedo(){
-        return this.flujo_trigo * this.humedad_deseada
-    }
-    get agua_en_trigo_seco(){
-        return this.flujo_trigo * this.humedad_deseada
-    }
-    get agua_a_evaporar (){
-        return this.agua_en_trigo_humedo - this.agua_en_trigo_seco
-    }
-    get calor_sencible () {
-        return this.flujo_trigo * this.calor_especifico_trigo * (this.temperatura_final - this.temperatura_inicial)
-    }
-    get calor_latente(){
-        return this.agua_a_evaporar * this.entalpia_vaporizacion_agua
-    }
-    get calor_total () {
-        return this.calor_sencible + this.calor_latente
-    }
-    get peso_neto_trigo () {
-        return this.flujo_trigo - this.agua_a_evaporar
-    }
-    get RetornAll(){
-        return {
-            user_id : this.a,
-            humedad_inicial : this.humedad_inicial,
-            humedad_deseada : this.humedad_deseada,
-            flujo_trigo : this.flujo_trigo,
-            temperatura_inicial : this.temperatura_inicial,
-            temperatura_final : this.temperatura_final,
-            calor_especifico_trigo : this.calor_especifico_trigo,
-            entalpia_vaporizacion_agua : this.entalpia_vaporizacion_agua,
-            agua_en_trigo_humedo : this.agua_en_trigo_humedo,
-            agua_en_trigo_seco: this.agua_en_trigo_seco,
-            agua_a_evaporar : this.agua_a_evaporar,
-            calor_sencible : this.calor_sencible,
-            calor_latente : this.calor_latente,
-            calor_total : this.calor_total,
-            peso_neto_trigo : this.peso_neto_trigo
+
+    calcPorcentaje(PORCETEAJE, TYPE) {
+        if (TYPE) {
+            return PORCETEAJE / 100;
+        } else {
+            return (100 - PORCETEAJE) / 100;
         }
     }
+    get Solidos(){
+        return this.CantidadInical * self.calcPorcentaje(self.HumedadInical, false)
+    }
+    get gHumedadInicial(){
+        return this.CantidadInical - self.Solidos
+    }
+    get gHumedadFinal(){
+        return(
+            this.Solidos * this.calcPorcentaje(this.HumedadFinal, true)
+            / this.calcPorcentaje(self.HumedadFinal, false)
+        )
+    }
+    get AguaEvaporada(){
+        return this.gHumedadInicial - this.gHumedadFinal
+    }
+    get FlujoAireSeco(){
+        return(
+            (1 / this.FluidoServicio) * this.AguaEvaporada
+        )
+    }
+    get QLatenteAg(){
+        return this.AguaEvaporada * this.LambDa
+    }
+    get QSencibleMat(){
+        return this.CantidadInical * this.CalorEspMa
+    }
+    get QTotal(){
+        return this.QLatenteAg + this.QSencibleMat
+    }
+
+    get RetornAll(){
+        return {
+            user_id : this.user_id,
+            CantidadInicial: this.CantidadInical,
+            MagCantidadInicial: "kg/s",
+            HumedadInicial: this.HumedadInical,
+            MagHumedadInicial: "%",
+            HumedadFinal: this.HumedadFinal,
+            MagHumedadFinal: "%",
+            FluidoServicio: this.FluidoServicio,
+            MagFluidoServicio: "Agua/kg",
+            TempInicial: this.TemInical,
+            LambDa: this.LambDa,
+            MagTempInicial: "K",
+            TempFinal: this.TemFinal,
+            MagTempFinal: "K",
+            CalorEspMa: this.CalorEspMa,
+            MagCalorEspMa: "kJ/kgK",
+            CalorEspAg: this.CalorEspAg,
+            MagCalorEspAg: "kJ/kgK",
+            Solidos: this.Solidos,
+            MagSolidos: "kg/s",
+            gHumedadInicial: this.gHumedadInicial,
+            MaggHumedadInicial: "kg/s",
+            gHumedadFinal: this.gHumedadFinal,
+            MaggHumedadFinal: "kg/s",
+            AguaEvaporada: this.AguaEvaporada,
+            MagAguaEvaporada: "kg/s",
+            FlujoAireSeco: this.FlujoAireSeco,
+            MagFlujoAireSeco: "kg/s",
+            QLatenteAg: this.QLatenteAg,
+            MagQLatenteAg: "kJ/s",
+            QSensibleMat: this.QSencibleMat,
+            MagQSensibleMat: "kJ/s",
+            QTotal: this.QTotal,
+            MagQTotal: "kJ/s"
+        }
+    }
+    
 }
-
-
-
-
-module.exports = {
-    //BalanceEnergia,
-    //BalanceMateria
-    Formulas
-} 
+module.exports = NewFormulas

@@ -1,9 +1,9 @@
 const  { Router } = require('express')
-const { getResultsData } = require('../../controllers/Simulator/')
+const getNewResults = require('../../controllers/Simulator/')
 
 
 const router = Router();
 
-router.post("/", getResultsData);
+router.post("/", getNewResults);
 
 module.exports = router
