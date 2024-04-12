@@ -1,80 +1,88 @@
 class NewFormulas {
     constructor(
         user_id,
-        CantidadInical,
-        HumedadInical,
+        CantidadInicial,
+        HumedadInicial,
         HumedadFinal,
         FluidoServicio,
-        TemInical,
-        TemFinal,
+        TempInicial,
+        TempFinal,
         LambDa,
         CalorEspMa,
-        CalorEspAg,
+        CalorEspAg
     ){
-        this.user_id        = user_id
-        this.CantidadInical = CantidadInical
-        this.HumedadInical  = HumedadInical
-        this.HumedadFinal   = HumedadFinal
-        this.FluidoServicio = FluidoServicio
-        this.TemInical      = TemInical
-        this.TemFinal       = TemFinal
-        this.LambDa         = LambDa
-        this.CalorEspMa     = CalorEspMa
-        this.CalorEspAg     = CalorEspAg
+        this.user_id = user_id;
+        this.CantidadInicial = CantidadInicial;
+        this.HumedadInicial = HumedadInicial;
+        this.HumedadFinal = HumedadFinal;
+        this.FluidoServicio = FluidoServicio;
+        this.TempInicial = TempInicial;
+        this.TempFinal = TempFinal;
+        this.LambDa = LambDa;
+        this.CalorEspMa = CalorEspMa;
+        this.CalorEspAg = CalorEspAg;
     }
 
-    calcPorcentaje(PORCETEAJE, TYPE) {
+    calcPorcentaje(PORCENTAJE, TYPE) {
         if (TYPE) {
-            return PORCETEAJE / 100;
+            return PORCENTAJE / 100;
         } else {
-            return (100 - PORCETEAJE) / 100;
+            return (100 - PORCENTAJE) / 100;
         }
     }
+    
     get Solidos(){
-        return this.CantidadInical * this.calcPorcentaje(this.HumedadInical, false)
+        return this.CantidadInicial * this.calcPorcentaje(this.HumedadInicial, false);
     }
+
     get gHumedadInicial(){
-        return this.CantidadInical - this.Solidos
+        return this.CantidadInicial - this.Solidos;
     }
+
     get gHumedadFinal(){
         return(
             this.Solidos * this.calcPorcentaje(this.HumedadFinal, true)
             / this.calcPorcentaje(this.HumedadFinal, false)
-        )
+        );
     }
+
     get AguaEvaporada(){
-        return this.gHumedadInicial - this.gHumedadFinal
+        return this.gHumedadInicial - this.gHumedadFinal;
     }
+
     get FlujoAireSeco(){
         return(
             (1 / this.FluidoServicio) * this.AguaEvaporada
-        )
+        );
     }
+
     get QLatenteAg(){
-        return this.AguaEvaporada * this.LambDa
+        return this.AguaEvaporada * this.LambDa;
     }
-    get QSencibleMat(){
-        return this.CantidadInical * this.CalorEspMa
+
+    get QSensibleMat(){
+        return this.CantidadInicial * this.CalorEspMa * (this.emPFinal - this.TemPIncial);
     }
+
     get QTotal(){
-        return this.QLatenteAg + this.QSencibleMat
+        return this.QLatenteAg + this.QSensibleMat;
     }
 
     get RetornAll(){
         return {
             user_id : this.user_id,
-            CantidadInicial: this.CantidadInical,
+            CantidadInicial: this.CantidadInicial,
             MagCantidadInicial: "kg/s",
-            HumedadInicial: this.HumedadInical,
+            HumedadInicial: this.HumedadInicial,
             MagHumedadInicial: "%",
             HumedadFinal: this.HumedadFinal,
             MagHumedadFinal: "%",
             FluidoServicio: this.FluidoServicio,
             MagFluidoServicio: "Agua/kg",
-            TempInicial: this.TemInical,
+            TempInicial: this.TempInicial,
             LambDa: this.LambDa,
             MagTempInicial: "K",
-            TempFinal: this.TemFinal,
+            TempFinal: this.TempFinal,
             MagTempFinal: "K",
             CalorEspMa: this.CalorEspMa,
             MagCalorEspMa: "kJ/kgK",
@@ -92,12 +100,12 @@ class NewFormulas {
             MagFlujoAireSeco: "kg/s",
             QLatenteAg: this.QLatenteAg,
             MagQLatenteAg: "kJ/s",
-            QSensibleMat: this.QSencibleMat,
+            QSensibleMat: this.QSensibleMat,
             MagQSensibleMat: "kJ/s",
             QTotal: this.QTotal,
             MagQTotal: "kJ/s"
-        }
+        };
     }
-    
 }
-module.exports = NewFormulas
+
+module.exports = NewFormulas;

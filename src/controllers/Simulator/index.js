@@ -1,5 +1,5 @@
-const NewFormulas = require('../../utils/Simulator')
-const NewSimulator =  require('../../models/Simulator')
+const {NewFormulas} = require('../../utils/Simulator')
+const {NewSimulator} =  require('../../models/Simulator')
 
 const getNewResults = async (req , res) => {
     try{
@@ -15,10 +15,8 @@ const getNewResults = async (req , res) => {
             CalorEspMa,
             CalorEspAg
         } = req.body;
-        // Reporte del Body... Para ver q es lo que Envia
-        console.log(req.body)
 
-        var Data =  new NewFormulas(
+        const Data =  new NewFormulas(
             user_id,
             CantidadInical,
             HumedadInical,
@@ -31,6 +29,8 @@ const getNewResults = async (req , res) => {
             CalorEspAg
         )
 
+        console.log(Data.RetornAll)
+        
         if(Data){
 
             const send = {
@@ -45,26 +45,17 @@ const getNewResults = async (req , res) => {
             }
             // Reporte de Send...
             console.log(send)
-            const report = await NewSimulator.create(Data.RetornAll)
+            //const report = await NewSimulator.create(Data.RetornAll)
 
             //Reporte de Reporete de la base de Datos
-
-            console.log(report)
-            res.status(500).json(
+            res.status(200).json(
                 {
-                    mensage : "Succesful!!",
-                    send : send
-                }
-            )
-        }else{
-            res.status(404).json(
-                {
-                    mensage : "Error With Data Process"
+                    send
                 }
             )
         }
     }catch(error) {
-
+        //console.error('Error with getResultsData: ', error);
         res.status(500).json({
             mensage: error.mensage
         })
@@ -134,5 +125,5 @@ const getResultsData = async (req, res) => {
 };
 
 module.exports = {
-    getResultsData
+    getNewResults
 };
