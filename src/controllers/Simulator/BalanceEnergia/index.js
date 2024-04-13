@@ -1,49 +1,47 @@
-const {} = require('../../../utils/Simulator/')
+const BalanceEnergia = require('../../../utils/Simulator/BalanceEnergia')
 
-const getResultsData = async (req, res) => {
+const APIBalanceEnergia = async (req, res) => {
     try{
-        console.log("POST")
         const {
-            InitialWeight,
-            FinalWeight, 
-            heatUsed,
-            massAEvaporate,
-            heatIdealVaporization,
-            supplyEnergy
+            AguaEvaporada,
+            CantidadInicial,
+            TempInicial,
+            TempFinal,
+            LambDa,
+            CalorEspMa,
+            CalorEspAg
         } = req.body;
-        var ResEcua =  new EcuaEvaporate(
-            InitialWeight,
-            FinalWeight,
-            heatUsed,
-            massAEvaporate,
-            heatIdealVaporization,
-            supplyEnergy
-        );
-    }catch(error){
-        console.error('Error with getResultsData: ', error)
-        res.status(500).json({
-            mensage: error.mensage
-        })
-    }finally{
-        if (ResEcua){
-            const send = {
-                humidityPercentage : ResEcua.humidityPercentage(),
-                IdealEnergy: ResEcua.IdealEnergy(),
-                EquationExcessEnergy : ResEcua.EquationExcessEnergy(),
-                EquationDeficitEnergy : ResEcua.EquationDeficitEnergy(),
-                timeToEvaporateEverything : ResEcua.timeToEvaporateEverything()
+
+        console.log("BODY ->" , req.body)
+
+
+        const set = new BalanceEnergia(
+            AguaEvaporada,
+            CantidadInicial,
+            TempInicial,
+            TempFinal,
+            LambDa,
+            CalorEspMa,
+            CalorEspAg
+        )
+        console.log(set)
+        if (set){
+            const get = {
+                QLatenteAg : set.QLatenteAg,
+                QSensibleMat : set.QSensibleMat,
+                QTotal : set.QTotal
             }
-    
-            res.status(500).json(
-                {
-                    send
-                }
-            )
+            console.log("Balance de Energia -> ", get)
+
+            res.status(200).json(get);
         }
+        
+    }catch(error){
+        console.error('Error with APIBalanceEnergia: ', error)
+        res.status(500).json({
+            message: error.message
+        })
     }
 }
 
-
-module.exports = {
-    getResultsData
-}
+module.exports = {APIBalanceEnergia}

@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
   config.conectionMysql.MYSQL_PASSWORD,
   {
     host: config.conectionMysql.MYSQL_HOST,
-    dialect: "mysql",
+    dialect: "mariadb",
   }
 );
 

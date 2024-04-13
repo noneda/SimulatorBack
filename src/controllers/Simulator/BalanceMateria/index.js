@@ -1,50 +1,42 @@
-const {EcuaEvaporate} = require('../../../utils/Simulator/CalorEvaporacion')
-const {EcuaEvaporacion} = require('../../../models/Simulator/')
 
-const getResultsData = async (req, res) => {
+const BalanceMateria = require('../../../utils/Simulator/BalanceMateria')
+
+const APIBalanceMateria = async (req, res) => {
     try{
-        console.log("POST")
         const {
-            InitialWeight,
-            FinalWeight, 
-            heatUsed,
-            massAEvaporate,
-            heatIdealVaporization,
-            supplyEnergy
+            CantidadInicial, 
+            HumedadInical,
+            HumedadFinal,
+            FluidoServicio 
         } = req.body;
-        var ResEcua =  new EcuaEvaporate(
-            InitialWeight,
-            FinalWeight,
-            heatUsed,
-            massAEvaporate,
-            heatIdealVaporization,
-            supplyEnergy
-        );
-    }catch(error){
-        console.error('Error with getResultsData: ', error)
-        res.status(500).json({
-            mensage: error.mensage
-        })
-    }finally{
-        if (ResEcua){
-            const send = {
-                humidityPercentage : ResEcua.humidityPercentage(),
-                IdealEnergy: ResEcua.IdealEnergy(),
-                EquationExcessEnergy : ResEcua.EquationExcessEnergy(),
-                EquationDeficitEnergy : ResEcua.EquationDeficitEnergy(),
-                timeToEvaporateEverything : ResEcua.timeToEvaporateEverything()
+
+        console.log("BODY ->" , req.body)
+
+
+        const set = new BalanceMateria(
+            CantidadInicial, 
+            HumedadInical,
+            HumedadFinal,
+            FluidoServicio 
+        )
+        if (set){
+            const get = {
+                Solidos: set.Solidos,
+                gHumedadInical : set.HumedadInical,
+                gHumedadFinal : set.HumedadFinal,
+                AguaEvaporada : set.AguaEvaporada,
+                FlujoAireSeco : set.FlujoAireSeco
             }
-    
-            res.status(500).json(
-                {
-                    send
-                }
-            )
+            console.log("Balance de Energia -> ", get)
+            res.status(200).json(get);
         }
+        
+    }catch(error){
+        console.error('Error with APIBalanceEnergia: ', error)
+        res.status(500).json({
+            message: error.message
+        })
     }
 }
 
-
-module.exports = {
-    getResultsData
-}
+module.exports = {APIBalanceMateria}

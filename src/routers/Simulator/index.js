@@ -1,9 +1,12 @@
 const  { Router } = require('express')
-const { getResultsData } = require('../../controllers/Simulator/')
+const { APIBalanceMateria } = require('../../controllers/Simulator/BalanceMateria')
+const {APIBalanceEnergia} = require('../../controllers/Simulator/BalanceEnergia')
+
 
 const router = Router();
 
-router.post("/" , getResultsData);
+router.post("/BalanceMateria" , APIBalanceMateria);
+router.post("/BalanceEnergia" , APIBalanceEnergia);
 
 
 module.exports = router
