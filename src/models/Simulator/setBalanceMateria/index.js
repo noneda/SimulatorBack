@@ -8,11 +8,10 @@ const setBalanceMateria = sequelize.define("setBalanceMateria", {
         primaryKey : true,
         autoIncrement : true
     },
-    TemInical : DataTypes.FLOAT, 		
-	TemFinal : DataTypes.FLOAT, 		
-	LambDa : DataTypes.FLOAT,			
-	CalorEspMa : DataTypes.FLOAT, 		
-	CalorEspAg : DataTypes.FLOAT 	
+	CantidadInical :DataTypes.FLOAT ,	
+	HumedadInical : DataTypes.FLOAT, 		
+	HumedadFinal : DataTypes.FLOAT, 		
+	FluidoServicio : DataTypes.FLOAT
 }, {
     tableName : "setBalanceMateria",
     timestamps : false

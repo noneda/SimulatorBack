@@ -2,8 +2,8 @@ class BalanceEnergia{
     constructor(
         AguaEvaporada,
         CantidadInicial,
-        TempInicial,
-        TempFinal,
+        TemInicial,
+        TemFinal,
         LambDa,
         CalorEspMa,
         CalorEspAg
@@ -11,8 +11,8 @@ class BalanceEnergia{
     {
         this.AguaEvaporada = AguaEvaporada
         this.CantidadInicial = CantidadInicial
-        this.TempInicial =TempInicial
-        this.TempFinal = TempFinal
+        this.TemInicial = TemInicial
+        this.TemFinal = TemFinal
         this.LambDa = LambDa
         this.CalorEspMa = CalorEspMa
         this.CalorEspAg = CalorEspAg
@@ -22,7 +22,7 @@ class BalanceEnergia{
     }
 
     get QSensibleMat(){
-        return this.CantidadInicial * this.CalorEspMa * (this.TempFinal - this.TempInicial);
+        return this.CantidadInicial * this.CalorEspMa * (this.TemFinal - this.TemInicial);
     }
 
     get QTotal(){

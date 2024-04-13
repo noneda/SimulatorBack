@@ -1,25 +1,34 @@
 const BalanceEnergia = require('../../../utils/Simulator/BalanceEnergia')
 
+const getBalanceEnergia = require('../../../models/Simulator/getBalanceEnergia')
+const setBalanceEnergia = require('../../../models/Simulator/setBalanceEnergia')
+
 const APIBalanceEnergia = async (req, res) => {
     try{
         const {
             AguaEvaporada,
             CantidadInicial,
-            TempInicial,
-            TempFinal,
+            TemInicial,
+            TemFinal,
             LambDa,
             CalorEspMa,
             CalorEspAg
         } = req.body;
 
         console.log("BODY ->" , req.body)
+        const set = {
+            TemInicial,
+            TemFinal,
+            LambDa,
+            CalorEspMa,
+            CalorEspAg     
+        }
 
-
-        const set = new BalanceEnergia(
+        const data = new BalanceEnergia(
             AguaEvaporada,
             CantidadInicial,
-            TempInicial,
-            TempFinal,
+            TemInicial,
+            TemFinal,
             LambDa,
             CalorEspMa,
             CalorEspAg
@@ -27,12 +36,28 @@ const APIBalanceEnergia = async (req, res) => {
         console.log(set)
         if (set){
             const get = {
-                QLatenteAg : set.QLatenteAg,
-                QSensibleMat : set.QSensibleMat,
-                QTotal : set.QTotal
+                QLatenteAg : data.QLatenteAg,
+                QSencibleMat : data.QSensibleMat,
+                Qtotal : data.QTotal
             }
             console.log("Balance de Energia -> ", get)
 
+            const getReport = await getBalanceEnergia.create(
+                get
+            )
+            const setReport = await setBalanceEnergia.create(
+                set
+            )
+            console.log(
+            {
+                report : "Get",
+                getReport
+            },
+            {
+                report : "Set",
+                setReport
+            }
+            )
             res.status(200).json(get);
         }
         

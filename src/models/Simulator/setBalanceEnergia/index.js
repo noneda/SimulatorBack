@@ -8,10 +8,11 @@ const setBalanceEnergia = sequelize.define("setBalanceEnergia", {
         primaryKey : true,
         autoIncrement : true
     },
-	CantidadInical : DataTypes.FLOAT,	
-	HumedadInical : DataTypes.FLOAT, 		
-	HumedadFinal : DataTypes.FLOAT, 		
-	FluidoServicio : DataTypes.FLOAT
+	TemInicial : DataTypes.FLOAT , 		
+	TemFinal : DataTypes.FLOAT, 		
+	LambDa : DataTypes.FLOAT,			
+	CalorEspMa : DataTypes.FLOAT, 		
+	CalorEspAg : DataTypes.FLOAT 
 },{
     tableName : "setBalanceEnergia",
     timestamps : false
