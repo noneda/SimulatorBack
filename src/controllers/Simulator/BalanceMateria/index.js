@@ -8,7 +8,7 @@ const APIBalanceMateria = async (req, res) => {
     try{
         const {
             CantidadInicial, 
-            HumedadInical,
+            HumedadInicial,
             HumedadFinal,
             FluidoServicio 
         } = req.body;
@@ -16,14 +16,14 @@ const APIBalanceMateria = async (req, res) => {
         console.log("BODY ->" , req.body)
         const set = {
             CantidadInicial, 
-            HumedadInical,
+            HumedadInicial,
             HumedadFinal,
-            FluidoServicio             
+            FluidoServicio         
         }
 
         const data = new BalanceMateria(
             CantidadInicial, 
-            HumedadInical,
+            HumedadInicial,
             HumedadFinal,
             FluidoServicio 
         )
@@ -31,8 +31,8 @@ const APIBalanceMateria = async (req, res) => {
         if (set){
             const get = {
                 Solidos: data.Solidos,
-                gHumedadInical : data.HumedadInical,
-                gHumedadFinal : data.HumedadFinal,
+                gHumedadInicial : data.gHumedadInicial,
+                gHumedadFinal : data.gHumedadFinal,
                 AguaEvaporada : data.AguaEvaporada,
                 FlujoAireSeco : data.FlujoAireSeco
             }

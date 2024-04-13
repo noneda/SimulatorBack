@@ -11,11 +11,9 @@ const { ShowDataBalanceMateria , ShowDataBalanceMateriaID} = require('../../cont
 const router = Router();
 
 // * BALANCE DE MATERIA
-/*
 router.post("/BalanceMateria" , APIBalanceMateria);
 router.get("/search/BalanceMateria/id/:id", ShowDataBalanceMateriaID);
 router.get("/search/BalanceMateria", ShowDataBalanceMateria);
-*/
 // * BALANCE DE ENERGIA
 router.post("/BalanceEnergia" , APIBalanceEnergia);
 router.get("/search/BalanceEnergia/id/:id", ShowDataBalanceEnergiaID);

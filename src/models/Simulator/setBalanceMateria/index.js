@@ -8,13 +8,13 @@ const setBalanceMateria = sequelize.define("setBalanceMateria", {
         primaryKey : true,
         autoIncrement : true
     },
-	CantidadInical :DataTypes.FLOAT ,	
-	HumedadInical : DataTypes.FLOAT, 		
+	CantidadInicial :DataTypes.FLOAT ,	
+	HumedadInicial : DataTypes.FLOAT, 		
 	HumedadFinal : DataTypes.FLOAT, 		
 	FluidoServicio : DataTypes.FLOAT
 }, {
     tableName : "setBalanceMateria",
     timestamps : false
-})
+})  
 
 module.exports = setBalanceMateria

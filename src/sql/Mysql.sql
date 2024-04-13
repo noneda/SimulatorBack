@@ -1,18 +1,8 @@
-
 drop database udc_proyecto;
 
 create database if not exists udc_proyecto;
 
 use udc_proyecto;
-
--- Delete Tables
-drop table Simulator;
-drop table setBalanceMateria;
-drop table getBalanceMateria;
-drop table setBalanceEnergia;
-drop table getBalanceEnergia;
-drop table setEstudianteBalanceEnergia;
-drop table setEstudianteBalanceMateria;
 
 -- Tabla Principal y De Anexos
 CREATE TABLE IF NOT EXISTS Simulator(
@@ -37,15 +27,15 @@ CREATE TABLE IF NOT EXISTS Simulator(
     FOREIGN KEY (idsetBalanceEnergia) REFERENCES setBalanceEnergia(id) ON DELETE CASCADE,
     FOREIGN KEY (idgetBalanceEnergia) REFERENCES getBalanceEnergia(id) ON DELETE CASCADE,
     FOREIGN KEY (idsetEstudianteBalanceMateria) REFERENCES setEstudianteBalanceMateria(id) ON DELETE CASCADE,
-    FOREIGN KEY (idgetEstudianteBalanceEnergia) REFERENCES getEstudianteBalanceEnergia(id) ON DELETE CASCADE
+    FOREIGN KEY (idgetEstudianteBalanceEnergia) REFERENCES setEstudianteBalanceEnergia(id) ON DELETE CASCADE
 );
 
 -- Datos de Entrada de Balance de Energia
 CREATE TABLE IF NOT EXISTS setBalanceMateria( 
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
 	-- idSimulador INT,  -- FK
-	CantidadInical FLOAT ,	
-	HumedadInical FLOAT, 		
+	CantidadInicial FLOAT ,	
+	HumedadInicial FLOAT, 		
 	HumedadFinal FLOAT, 		
 	FluidoServicio FLOAT
 );
@@ -61,11 +51,13 @@ CREATE TABLE IF NOT EXISTS getBalanceMateria (
 	FlujoAireSeco FLOAT 
 );
 
+describe setBalanceMateria;
+
 -- Datos de Entrada de Balance de Energia
 CREATE TABLE IF NOT EXISTS setBalanceEnergia(
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	-- idSimulador INT, -- FK
-	TemInical FLOAT , 		
+	TemInicial FLOAT , 		
 	TemFinal FLOAT, 		
 	LambDa FLOAT,			
 	CalorEspMa FLOAT, 		
@@ -82,7 +74,7 @@ CREATE TABLE IF NOT EXISTS getBalanceEnergia(
 );
 
 -- Datos de Entrada de Resultados del Estudiante de Balance de Energia
-CREATE TABLE IF NOT exists setEstudianteBalanceMateria(  
+CREATE TABLE IF NOT exists setEstudianteBalanceEnergia(  
 	id  INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
 	-- idSimulador  INT,  -- FK
 	QLatenteAg  FLOAT,
@@ -91,11 +83,15 @@ CREATE TABLE IF NOT exists setEstudianteBalanceMateria(
 );
 
 -- Datos de Entrada de Resultados del Estudiante de Balance de Materia
-CREATE TABLE IF NOT EXISTS getEstudianteBalanceEnergia( 
+CREATE TABLE IF NOT EXISTS setEstudianteBalanceMateria( 
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	-- idSimulador INT, -- FK
-	CantidadInical FLOAT, 	
-	HumedadInical FLOAT, 		
+	CantidadInicial FLOAT, 	
+	HumedadInicial FLOAT, 		
 	HumedadFinal FLOAT, 		
 	FluidoServicio FLOAT	
 );
+
+-- Insercion de Datos -- Pruebas
+select * from getBalanceEnergia;
+select * from setBalanceMateria;

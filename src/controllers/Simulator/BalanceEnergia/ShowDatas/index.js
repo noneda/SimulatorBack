@@ -27,9 +27,6 @@ const ShowDataBalanceEnergia = async (req, res) => {
         res.status(200).json({get, set});   
     }catch(error){
         console.error('Error with ShowDataBalanceEnergia: ', error)
-        res.status(500).json({
-            message: error.message
-        })
     }
 }
 

@@ -14,8 +14,8 @@ const getBalanceMateria = sequelize.define("getBalanceMateria", {
 	AguaEvaporada : DataTypes.FLOAT, 		
 	FlujoAireSeco : DataTypes.FLOAT 
 
-},{
-    tableName : "getBalanceEnergia",
+},{ 
+    tableName : "getBalanceMateria",
     timestamps: false
 });
 

@@ -2,13 +2,13 @@ class BalanceMateria{
     constructor 
     (
         CantidadInicial, 
-        HumedadInical,
+        HumedadInicial,
         HumedadFinal,
         FluidoServicio 
     )
     {
         this.CantidadInicial = CantidadInicial;
-        this.HumedadInical = HumedadInical;
+        this.HumedadInicial = HumedadInicial;
         this.HumedadFinal = HumedadFinal;
         this.FluidoServicio = FluidoServicio;
     }
@@ -22,7 +22,7 @@ class BalanceMateria{
     }
 
     get Solidos(){
-        return this.CantidadInicial * this.calcPorcentaje(this.HumedadInical, false);
+        return this.CantidadInicial * this.calcPorcentaje(this.HumedadInicial, false);
     }
 
     get gHumedadInicial(){
