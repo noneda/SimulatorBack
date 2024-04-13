@@ -1,7 +1,7 @@
 const router = require('./Simulator')
 
 const send = (app) => {
-  app.use("/api/test", router);
+  app.use("/test", router);
 
 }
 
