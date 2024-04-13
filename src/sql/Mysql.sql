@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS Simulator(
     
     -- Foreing Key Para los Datos que Ingresa el Estudiante
 	idsetEstudianteBalanceMateria int,
-	idgetEstudianteBalanceEnergia int,
+	idgetEstudianteBalanceEnergia int,	
     
-    
+ 8079    
     -- RELACIONES
 	FOREIGN KEY (idsetBalanceMateria) REFERENCES setBalanceMateria(id) ON DELETE CASCADE,
     FOREIGN KEY (idgetBalanceMateria) REFERENCES getBalanceMateria(id) ON DELETE CASCADE,

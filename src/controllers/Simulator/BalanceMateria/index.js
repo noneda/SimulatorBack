@@ -1,9 +1,6 @@
 
 const BalanceMateria = require('../../../utils/Simulator/BalanceMateria')
 
-const getBalanceMateria = require('../../../models/Simulator/getBalanceMateria')
-const setBalanceMateria = require('../../../models/Simulator/setBalanceMateria')
-
 const APIBalanceMateria = async (req, res) => {
     try{
         const {
@@ -12,8 +9,6 @@ const APIBalanceMateria = async (req, res) => {
             HumedadFinal,
             FluidoServicio 
         } = req.body;
-
-        console.log("BODY ->" , req.body)
         const set = {
             CantidadInicial, 
             HumedadInicial,
@@ -28,7 +23,7 @@ const APIBalanceMateria = async (req, res) => {
             FluidoServicio 
         )
         console.log(set)
-        if (set){
+        if (data){
             const get = {
                 Solidos: data.Solidos,
                 gHumedadInicial : data.gHumedadInicial,
@@ -37,22 +32,6 @@ const APIBalanceMateria = async (req, res) => {
                 FlujoAireSeco : data.FlujoAireSeco
             }
             console.log("Balance de Energia -> ", get)
-            const getReport = await getBalanceMateria.create(
-                get
-            )
-            const setReport = await setBalanceMateria.create(
-                set
-            )
-            console.log(
-            {
-                report : "Get",
-                getReport
-            },
-            {
-                report : "Set",
-                setReport
-            }
-            )
             res.status(200).json(get);
         }
         

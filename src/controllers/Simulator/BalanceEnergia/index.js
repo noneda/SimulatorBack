@@ -14,8 +14,6 @@ const APIBalanceEnergia = async (req, res) => {
             CalorEspMa,
             CalorEspAg
         } = req.body;
-
-        console.log("BODY ->" , req.body)
         const set = {
             TemInicial,
             TemFinal,
@@ -34,30 +32,13 @@ const APIBalanceEnergia = async (req, res) => {
             CalorEspAg
         )
         console.log(set)
-        if (set){
+        if (data){
             const get = {
                 QLatenteAg : data.QLatenteAg,
                 QSencibleMat : data.QSensibleMat,
                 Qtotal : data.QTotal
             }
             console.log("Balance de Energia -> ", get)
-
-            const getReport = await getBalanceEnergia.create(
-                get
-            )
-            const setReport = await setBalanceEnergia.create(
-                set
-            )
-            console.log(
-            {
-                report : "Get",
-                getReport
-            },
-            {
-                report : "Set",
-                setReport
-            }
-            )
             res.status(200).json(get);
         }
         
