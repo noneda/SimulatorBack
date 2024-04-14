@@ -1,7 +1,4 @@
-const BalanceEnergia = require('../../../utils/Simulator/BalanceEnergia')
-
-const getBalanceEnergia = require('../../../models/Simulator/getBalanceEnergia')
-const setBalanceEnergia = require('../../../models/Simulator/setBalanceEnergia')
+const EqBalanceEnergia = require('../../../utils/Simulator/BalanceEnergia')
 
 const APIBalanceEnergia = async (req, res) => {
     try{
@@ -22,7 +19,7 @@ const APIBalanceEnergia = async (req, res) => {
             CalorEspAg     
         }
 
-        const data = new BalanceEnergia(
+        const data = new EqBalanceEnergia(
             AguaEvaporada,
             CantidadInicial,
             TemInicial,

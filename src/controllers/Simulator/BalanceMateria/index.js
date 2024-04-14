@@ -1,5 +1,5 @@
 
-const BalanceMateria = require('../../../utils/Simulator/BalanceMateria')
+const EqsBalanceMateria = require('../../../utils/Simulator/BalanceMateria')
 
 const APIBalanceMateria = async (req, res) => {
     try{
@@ -16,7 +16,7 @@ const APIBalanceMateria = async (req, res) => {
             FluidoServicio         
         }
 
-        const data = new BalanceMateria(
+        const data = new EqsBalanceMateria(
             CantidadInicial, 
             HumedadInicial,
             HumedadFinal,

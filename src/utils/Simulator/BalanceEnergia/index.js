@@ -1,4 +1,4 @@
-class BalanceEnergia{
+class EqBalanceEnergia{
     constructor(
         AguaEvaporada,
         CantidadInicial,
@@ -29,4 +29,4 @@ class BalanceEnergia{
         return this.QLatenteAg + this.QSensibleMat;
     }
 }
-module.exports = BalanceEnergia
+module.exports = EqBalanceEnergia

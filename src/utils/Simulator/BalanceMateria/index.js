@@ -1,4 +1,4 @@
-class BalanceMateria{
+class EqsBalanceMateria{
     constructor 
     (
         CantidadInicial, 
@@ -49,5 +49,5 @@ class BalanceMateria{
 
 
 
-module.exports = BalanceMateria
+module.exports = EqsBalanceMateria
 

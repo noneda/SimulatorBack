@@ -1,6 +1,6 @@
 const {DataTypes} = require('sequelize')
 
-const sequelize = require('../../../database')
+const sequelize = require('../../../../database')
 
 const getBalanceEnergia = sequelize.define("getBalanceEnergia", {
     id : {

@@ -1,5 +1,5 @@
-const getBalanceEnergia = require('../../../../models/Simulator/getBalanceEnergia')
-const setBalanceEnergia = require('../../../../models/Simulator/setBalanceEnergia')
+const getBalanceEnergia = require('../../../../models/Simulator/BalanceEnergia/get')
+const setBalanceEnergia = require('../../../../models/Simulator/BalanceEnergia/set')
 
 const saveBalanceEnergia = async (req, res) => {
     try{

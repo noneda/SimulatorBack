@@ -1,11 +1,8 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../database')
 
-const getBalanceEnergia = require('./getBalanceEnergia');
-const setBalanceEnergia = require('./setBalanceEnergia')
-
-const getBalanceMateria = require('./getBalanceMateria');
-const setBalanceMateria = require('./setBalanceMateria')
+const BalanceEnergia = require('./BalanceEnergia');
+const BalanceMateria = require('./BalanceMateria');
 
 const setEstudianteBalanceMateria = require('./setEstudianteBalanceMateria')
 const setEstudianteBalanceEnergia = require('./setEstudianteBalanceEnergia')
@@ -17,29 +14,33 @@ const Simulator = sequelize.define('Simulator', {
         autoIncrement: true,
         allowNull: false
     },
-    idsetBalanceMateria: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+    idBalanceMateria: {
+        type : DataTypes.INTEGER,
+        references : {
+            model : BalanceMateria,
+            key : 'id' 
+        }
     },
-    idgetBalanceMateria: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    idsetBalanceEnergia: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    idgetBalanceEnergia: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+    idBalanceEnergia: {
+        type : DataTypes.INTEGER,
+        references : {
+            model : BalanceEnergia,
+            key : 'id' 
+        }
     },
     idsetEstudianteBalanceMateria: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+        type : DataTypes.INTEGER,
+        references : {
+            model : setEstudianteBalanceMateria,
+            key : 'id' 
+        }
     },
-    idgetEstudianteBalanceEnergia: {
+    idsetEstudianteBalanceEnergia: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        references : {
+            model : setEstudianteBalanceEnergia,
+            key : 'id' 
+        }
     }
 }, {
     tableName: 'Simulator',
@@ -47,19 +48,7 @@ const Simulator = sequelize.define('Simulator', {
 });
 
 // Define relationships
-Simulator.belongsTo(setBalanceMateria, { foreignKey: 'idsetBalanceMateria' });
-Simulator.belongsTo(getBalanceMateria, { foreignKey: 'idgetBalanceMateria' });
-Simulator.belongsTo(setBalanceEnergia, { foreignKey: 'idsetBalanceEnergia' });
-Simulator.belongsTo(getBalanceEnergia, { foreignKey: 'idgetBalanceEnergia' });
-Simulator.belongsTo(setEstudianteBalanceMateria, { foreignKey: 'idsetEstudianteBalanceMateria' });
-Simulator.belongsTo(setEstudianteBalanceEnergia, { foreignKey: 'idgetEstudianteBalanceEnergia' });
 
 module.exports = {
   Simulator,
-  setBalanceEnergia,
-  getBalanceEnergia,
-  setBalanceMateria,
-  getBalanceMateria,
-  setEstudianteBalanceEnergia,
-  setEstudianteBalanceMateria
 };

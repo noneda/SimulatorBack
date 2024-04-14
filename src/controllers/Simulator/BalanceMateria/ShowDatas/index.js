@@ -1,5 +1,5 @@
-const getBalanceMateria = require('../../../../models/Simulator/getBalanceMateria')
-const setBalanceMateria = require('../../../../models/Simulator/setBalanceMateria')
+const getBalanceMateria = require('../../../../models/Simulator/BalanceMateria/get')
+const setBalanceMateria = require('../../../../models/Simulator/BalanceMateria/set')
 
 const ShowDataBalanceMateriaID = async (req, res) => {
     try{
