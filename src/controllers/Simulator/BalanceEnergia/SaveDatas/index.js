@@ -1,3 +1,4 @@
+const BalanceEnergia = require('../../../../models/Simulator/BalanceEnergia')
 const getBalanceEnergia = require('../../../../models/Simulator/BalanceEnergia/get')
 const setBalanceEnergia = require('../../../../models/Simulator/BalanceEnergia/set')
 
@@ -37,16 +38,14 @@ const saveBalanceEnergia = async (req, res) => {
         const setReport = await setBalanceEnergia.create(
             set
         )
-        console.log(
-            {
-                report : "Get",
-                getReport
-            },
-            {
-                report : "Set",
-                setReport
-            }
+        const send = await BalanceEnergia.create(
+            setReport.id,
+            getReport.id
         )
+        res.status(200).json(
+            send.id
+        );
+        
         res.status(200).json({
             getBalanceEnergia: getReport.id,
             setBalanceEnergia: setReport.id

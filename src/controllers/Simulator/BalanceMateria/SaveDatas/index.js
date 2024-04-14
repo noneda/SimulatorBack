@@ -1,3 +1,4 @@
+const BalanceMateria = require('../../../../models/Simulator/BalanceMateria')
 const getBalanceMateria = require('../../../../models/Simulator/BalanceMateria/get')
 const setBalanceMateria = require('../../../../models/Simulator/BalanceMateria/set')
 
@@ -39,20 +40,13 @@ const saveBalanceMateria = async (req, res) => {
         const setReport = await setBalanceMateria.create(
             set
         )
-        console.log(
-            {
-                report : "Get",
-                getReport
-            },
-            {
-                report : "Set",
-                setReport
-            }
+        const send = await BalanceMateria.create(
+            setReport.id,
+            getReport.id
         )
-        res.status(200).json({
-            getBalanceMateria: getReport.id,
-            setBalanceMateria: setReport.id
-        });
+        res.status(200).json(
+            send.id
+        );
         
         
     }catch(error){
