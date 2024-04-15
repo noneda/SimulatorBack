@@ -6,8 +6,9 @@ const ShowDataBalanceMateriaID = async (req, res) => {
     try{
         const { id } = req.params;
         if(id){
-            const get = await getBalanceMateria.findAll({where : {id : id}})
-            const set = await setBalanceMateria.findAll({where : {id : id}})
+            const Bal = await BalanceMateria.findOne({where: {id : id}  })
+            const get = await getBalanceMateria.findOne({where: { id: Bal.idGet } })
+            const set = await setBalanceMateria.findOne({where: { id: Bal.idSet } })  
             res.status(200).json({get, set}); 
         }
     }catch(error){

@@ -40,14 +40,8 @@ const saveBalanceMateria = async (req, res) => {
         const setReport = await setBalanceMateria.create(
             set
         )
-        const send = await BalanceMateria.create(
-            setReport.id,
-            getReport.id
-        )
-        res.status(200).json(
-            send.id
-        );
-        
+3
+
         
     }catch(error){
         console.error('Error with Send Data to Balance de Materia: ', error)

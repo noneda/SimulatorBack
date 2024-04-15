@@ -6,8 +6,9 @@ const ShowDataBalanceEnergiaID = async (req, res) => {
     try{
         const { id } = req.params;
         if(id){
-            const get = await getBalanceEnergia.findAll({where: { id: id } })
-            const set = await setBalanceEnergia.findAll({where: { id: id } }) 
+            const Bal = await BalanceEnergia.findOne({where: {id : id}})
+            const get = await getBalanceEnergia.findOne({where: { id: Bal.idGet } })
+            const set = await setBalanceEnergia.findOne({where: { id: Bal.idSet } }) 
             res.status(200).json({get, set});
         } 
     }catch(error){
