@@ -10,10 +10,10 @@ const APIBalanceMateria = async (req, res) => {
             FluidoServicio 
         } = req.body;
         const set = {
-            CantidadInicial, 
-            HumedadInicial,
-            HumedadFinal,
-            FluidoServicio         
+            CantidadInicial : CantidadInicial, 
+            HumedadInicial : HumedadFinal,
+            HumedadFinal : HumedadFinal,
+            FluidoServicio : FluidoServicio         
         }
 
         const data = new EqsBalanceMateria(
@@ -22,7 +22,6 @@ const APIBalanceMateria = async (req, res) => {
             HumedadFinal,
             FluidoServicio 
         )
-        console.log(set)
         if (data){
             const get = {
                 Solidos: data.Solidos,
@@ -31,12 +30,10 @@ const APIBalanceMateria = async (req, res) => {
                 AguaEvaporada : data.AguaEvaporada,
                 FlujoAireSeco : data.FlujoAireSeco
             }
-            console.log("Balance de Energia -> ", get)
-            res.status(200).json(get);
+            res.status(200).json({get ,set});
         }
         
     }catch(error){
-        console.error('Error with APIBalanceEnergia: ', error)
         res.status(500).json({
             message: error.message
         })

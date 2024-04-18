@@ -5,12 +5,10 @@ const setBalanceMateria = require('../../../../models/Simulator/BalanceMateria/s
 const ShowDataBalanceMateriaID = async (req, res) => {
     try{
         const { id } = req.params;
-        if(id){
-            const Bal = await BalanceMateria.findOne({where: {id : id}  })
-            const get = await getBalanceMateria.findOne({where: { id: Bal.idGet } })
-            const set = await setBalanceMateria.findOne({where: { id: Bal.idSet } })  
-            res.status(200).json({get, set}); 
-        }
+        const Bal = await BalanceMateria.findOne({where: {id : id}  })
+        const get = await getBalanceMateria.findOne({where: { id: Bal.idGet } })
+        const set = await setBalanceMateria.findOne({where: { id: Bal.idSet } })  
+        res.status(200).json({get, set}); 
     }catch(error){
         console.error('Error with ShowDataBalanceMateria: ', error)
         res.status(500).json({

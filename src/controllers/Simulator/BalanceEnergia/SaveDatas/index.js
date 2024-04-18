@@ -4,34 +4,12 @@ const setBalanceEnergia = require('../../../../models/Simulator/BalanceEnergia/s
 
 const saveBalanceEnergia = async (req, res) => {
     try{
+        console.log("POST -> SAVE BALANCE ENERGIA")
         const {
-            TemInicial,
-            TemFinal,
-            LambDa,
-            CalorEspMa,
-            CalorEspAg,
-            QLatenteAg,
-            QSencibleMat,
-            Qtotal 
-        } = req.body;
+            get,
+            set
+          } = req.body;
 
-        console.log("BODY ->" , req.body)
-        
-        const set = {
-            TemInicial,
-            TemFinal,
-            LambDa,
-            CalorEspMa,
-            CalorEspAg     
-        }
-        const get = {
-            QLatenteAg,
-            QSencibleMat,
-            Qtotal 
-        }
-
-        console.log("SET ->", set)
-        console.log("GET -> ", get)
         const getReport = await getBalanceEnergia.create(
             get
         )
@@ -39,21 +17,23 @@ const saveBalanceEnergia = async (req, res) => {
             set
         )
         const send = await BalanceEnergia.create(
-            setReport.id,
-            getReport.id
+            {
+                idSet: setReport.id,
+                idGet: getReport.id
+            }
         )
+
         res.status(200).json(
-            send.id
+            {
+                mensagge : "Succesful!",
+                id : send.id,
+                idSet : setReport.id,
+                idGte : getReport.id
+            }
         );
-        
-        res.status(200).json({
-            getBalanceEnergia: getReport.id,
-            setBalanceEnergia: setReport.id
-        });
         
         
     }catch(error){
-        console.error('Error with Send Data to Balance de Materia: ', error)
         res.status(500).json({
             message: error.message
         })

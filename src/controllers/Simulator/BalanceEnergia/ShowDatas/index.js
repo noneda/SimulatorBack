@@ -5,12 +5,10 @@ const setBalanceEnergia = require('../../../../models/Simulator/BalanceEnergia/s
 const ShowDataBalanceEnergiaID = async (req, res) => {
     try{
         const { id } = req.params;
-        if(id){
-            const Bal = await BalanceEnergia.findOne({where: {id : id}})
-            const get = await getBalanceEnergia.findOne({where: { id: Bal.idGet } })
-            const set = await setBalanceEnergia.findOne({where: { id: Bal.idSet } }) 
-            res.status(200).json({get, set});
-        } 
+        const Bal = await BalanceEnergia.findOne({where: {id : id}})
+        const get = await getBalanceEnergia.findOne({where: { id: Bal.idGet } })
+        const set = await setBalanceEnergia.findOne({where: { id: Bal.idSet } }) 
+        res.status(200).json({get, set});
     }catch(error){
         console.error('Error with ShowDataBalanceEnergia: ', error)
         res.status(500).json({

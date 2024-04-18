@@ -12,11 +12,11 @@ const APIBalanceEnergia = async (req, res) => {
             CalorEspAg
         } = req.body;
         const set = {
-            TemInicial,
-            TemFinal,
-            LambDa,
-            CalorEspMa,
-            CalorEspAg     
+            TemInicial: TemInicial,
+            TemFinal : TemFinal,
+            LambDa: LambDa,
+            CalorEspMa : CalorEspMa,
+            CalorEspAg : CalorEspAg     
         }
 
         const data = new EqBalanceEnergia(
@@ -28,19 +28,16 @@ const APIBalanceEnergia = async (req, res) => {
             CalorEspMa,
             CalorEspAg
         )
-        console.log(set)
         if (data){
             const get = {
                 QLatenteAg : data.QLatenteAg,
                 QSencibleMat : data.QSensibleMat,
                 Qtotal : data.QTotal
             }
-            console.log("Balance de Energia -> ", get)
-            res.status(200).json(get);
+            res.status(200).json({get ,set});
         }
         
     }catch(error){
-        console.error('Error with APIBalanceEnergia: ', error)
         res.status(500).json({
             message: error.message
         })

@@ -19,6 +19,8 @@ router.post("/BalanceMateria" , APIBalanceMateria);
 router.get("/search/BalanceMateria/id/:id", ShowDataBalanceMateriaID);
 router.get("/search/BalanceMateria", ShowDataBalanceMateria);
 router.post("/save/BalanceMateria", saveBalanceMateria)
+
+
 // * BALANCE DE ENERGIA
 router.post("/BalanceEnergia" , APIBalanceEnergia);
 router.get("/search/BalanceEnergia/id/:id", ShowDataBalanceEnergiaID);
