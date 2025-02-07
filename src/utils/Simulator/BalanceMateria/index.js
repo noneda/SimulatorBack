@@ -1,31 +1,53 @@
-class BalanceMateria{
-    constructor(
-        Temperatura_Incial,
-        Temperatura_Final,
-        Latente_Vaporizacion,
-        Calor_Especifio,
-        Calor_Especifio_Agua,
-        Masa_Agua_Evapora,
-        Masa_Total
+class EqsBalanceMateria{
+    constructor 
+    (
+        CantidadInicial, 
+        HumedadInicial,
+        HumedadFinal,
+        FluidoServicio 
     )
     {
-        this.Temperatura_Final = Temperatura_Final;
-        this.Temperatura_Incial = Temperatura_Incial;
-        this.Latente_Vaporizacion = Latente_Vaporizacion;
-        this.Calor_Especifio = Calor_Especifio;
-        this.Calor_Especifio_Agua = Calor_Especifio_Agua;
-        this.Masa_Agua_Evapora = Masa_Agua_Evapora;
-        this.Masa_Total = Masa_Total
+        this.CantidadInicial = CantidadInicial;
+        this.HumedadInicial = HumedadInicial;
+        this.HumedadFinal = HumedadFinal;
+        this.FluidoServicio = FluidoServicio;
     }
-    get QLatente_Agua(){
-        return this.Masa_Agua_Evapora * this.Latente_Vaporizacion
-    }
-    get IdontKnow(){
-        return this.Masa_Total * this.Calor_Especifio * (this.Temperatura_Final - this.Temperatura_Incial )
-    }
-    get QTotal(){
-        return this.QLatente_Agua + this.IdontKnow
+    
+    calcPorcentaje(PORCENTAJE, TYPE) {
+        if (TYPE) {
+            return PORCENTAJE / 100;
+        } else {
+            return (100 - PORCENTAJE) / 100;
+        }
     }
 
+    get Solidos(){
+        return this.CantidadInicial * this.calcPorcentaje(this.HumedadInicial, false);
+    }
+
+    get gHumedadInicial(){
+        return this.CantidadInicial - this.Solidos;
+    }
+
+    get gHumedadFinal(){
+        return(
+            this.Solidos * this.calcPorcentaje(this.HumedadFinal, true)
+            / this.calcPorcentaje(this.HumedadFinal, false)
+        );
+    }
+
+    get AguaEvaporada(){
+        return this.gHumedadInicial - this.gHumedadFinal;
+    }
+
+    get FlujoAireSeco(){
+        return(
+            (1 / this.FluidoServicio) * this.AguaEvaporada
+        );
+    }
 }
-module.exports = BalanceMateria
+
+
+
+module.exports = EqsBalanceMateria
+

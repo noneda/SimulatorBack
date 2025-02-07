@@ -1,49 +1,47 @@
-const {} = require('../../../utils/Simulator/')
+const EqBalanceEnergia = require('../../../utils/Simulator/BalanceEnergia')
 
-const getResultsData = async (req, res) => {
+const APIBalanceEnergia = async (req, res) => {
     try{
-        console.log("POST")
         const {
-            InitialWeight,
-            FinalWeight, 
-            heatUsed,
-            massAEvaporate,
-            heatIdealVaporization,
-            supplyEnergy
+            AguaEvaporada,
+            CantidadInicial,
+            TemInicial,
+            TemFinal,
+            LambDa,
+            CalorEspMa,
+            CalorEspAg
         } = req.body;
-        var ResEcua =  new EcuaEvaporate(
-            InitialWeight,
-            FinalWeight,
-            heatUsed,
-            massAEvaporate,
-            heatIdealVaporization,
-            supplyEnergy
-        );
-    }catch(error){
-        console.error('Error with getResultsData: ', error)
-        res.status(500).json({
-            mensage: error.mensage
-        })
-    }finally{
-        if (ResEcua){
-            const send = {
-                humidityPercentage : ResEcua.humidityPercentage(),
-                IdealEnergy: ResEcua.IdealEnergy(),
-                EquationExcessEnergy : ResEcua.EquationExcessEnergy(),
-                EquationDeficitEnergy : ResEcua.EquationDeficitEnergy(),
-                timeToEvaporateEverything : ResEcua.timeToEvaporateEverything()
-            }
-    
-            res.status(500).json(
-                {
-                    send
-                }
-            )
+        const set = {
+            TemInicial: TemInicial,
+            TemFinal : TemFinal,
+            LambDa: LambDa,
+            CalorEspMa : CalorEspMa,
+            CalorEspAg : CalorEspAg     
         }
+
+        const data = new EqBalanceEnergia(
+            AguaEvaporada,
+            CantidadInicial,
+            TemInicial,
+            TemFinal,
+            LambDa,
+            CalorEspMa,
+            CalorEspAg
+        )
+        if (data){
+            const get = {
+                QLatenteAg : data.QLatenteAg,
+                QSencibleMat : data.QSensibleMat,
+                Qtotal : data.QTotal
+            }
+            res.status(200).json({get ,set});
+        }
+        
+    }catch(error){
+        res.status(500).json({
+            message: error.message
+        })
     }
 }
 
-
-module.exports = {
-    getResultsData
-}
+module.exports = {APIBalanceEnergia}
